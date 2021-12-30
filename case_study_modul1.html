@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="caseStudym]Modul1.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <script src="iroha.js"></script>
+</head>
+<body>
+<div class="tong">
+    <canvas id="myCanvas" width="1100" height="700" style="border: solid 1px"></canvas>
+    <div class="display">
+
+        <img src="imgCase/fuji-dagi-1024x683.jpg" alt="">
+        <p id="ketQua"><h2> いろはを勉強しましょう</h2></p>
+    </div>
+    <button onclick="clickHere()" id="input1"> Start</button>
+</div>
+<audio loop id="audioAroha">
+    <source src="audio/baiHatAroha.mp3">
+</audio>
+<script>
+    function clickHere() {
+        document.getElementById("ketQua").innerHTML = "<p> <h3>始めましょう</h3></p>"
+        document.getElementById("audioAroha").play();
+        document.addEventListener('keydown', moveBaby);
+    }
+
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+    ctx.font= "100px Comic Sans MS"
+    ctx.fillStyle="red"
+    ctx.fillText("Hiragana", 300,330)
+
+    let myBaby = new Baby(480, 180, 80, 80, 10, "imgCase/baby right.png");
+
+    let myIrohaA = new Iroha(30, 30, 60, 60, "imgCase/a.png");
+    let myIrohaI = new Iroha(200, 30, 60, 60, "imgCase/i.png");
+    let myIrohaU = new Iroha(370, 30, 60, 60, "imgCase/u.png");
+    let myIrohaE = new Iroha(540, 30, 60, 60, "imgCase/e.png");
+    let myIrohaO = new Iroha(710, 30, 60, 60, "imgCase/o.png");
+    let myIrohaKa = new Iroha(880, 30, 60, 60, "imgCase/ka.png");
+    let myIrohaKi = new Iroha(1030, 30, 60, 60, "imgCase/ki.png");
+
+
+    let myIrohaKu = new Iroha(30, 580, 60, 60, "imgCase/ku.png");
+    let myIrohaKe = new Iroha(200, 580, 60, 60, "imgCase/ke.png");
+    let myIrohaKo = new Iroha(370, 580, 60, 60, "imgCase/ko.png");
+    let myIrohaSa = new Iroha(540, 580, 60, 60, "imgCase/sa.png");
+    let myIrohaSi = new Iroha(710, 580, 60, 60, "imgCase/shi.png");
+    let myIrohaSu = new Iroha(880, 580, 60, 60, "imgCase/su.png");
+    let myIrohaSe = new Iroha(1030, 580, 60, 60, "imgCase/se.png");
+
+
+    let myIrohas = [myIrohaA, myIrohaI, myIrohaU, myIrohaE, myIrohaO, myIrohaKa, myIrohaKi, myIrohaKu,
+        myIrohaKe, myIrohaKo, myIrohaSa, myIrohaSi, myIrohaSu, myIrohaSe]
+
+    for (let i = 0; i < myIrohas.length; i++) {
+        myIrohas[i].drawIroha(ctx)
+    }
+
+    myBaby.drawBaby(ctx);
+
+    ;
+
+
+    function moveBaby(event) {
+        switch (event.keyCode) {
+            case 37: {
+                if (myBaby._x < 0) {
+                    myBaby._x = 1200;
+                }
+                myBaby.src = "imgCase/baby left.png"
+                myBaby.moveLeft();
+                break
+
+            }
+            case 38: {
+                if (myBaby._y < 0) {
+                    myBaby._y = 700;
+                }
+                myBaby.src = "imgCase/baby up.png"
+                myBaby.moveUp();
+                break;
+            }
+            case 39: {
+                if (myBaby._x > canvas.clientWidth) {
+                    myBaby._x = -50;
+                }
+                myBaby.src = "imgCase/baby right.png"
+                myBaby.moveRight();
+                break;
+            }
+            case 40: {
+                if (myBaby._y > canvas.clientHeight) {
+                    myBaby._y = -50;
+                }
+                myBaby.src = "imgCase/baby down.png"
+                myBaby.moveDown();
+                break;
+            }
+            case 17: {
+                myBaby.upSpeed();
+                break;
+            }
+            case 32: {
+                myBaby.downSpeed()
+                break;
+            }
+
+        }
+        VaChamA();
+        VaChamI();
+        VaChamU();
+        VaChamE();
+        VaChamO();
+        VaChamKa();
+        VaChamKi();
+        VaChamKu();
+        VaChamKe();
+        VaChamKo();
+        VaChamSa();
+        VaChamSi();
+        VaChamSu();
+        VaChamSe();
+        uplateCanvas();
+        myBaby.drawBaby(ctx);
+        for (let i = 0; i < myIrohas.length; i++) {
+            myIrohas[i].drawIroha(ctx)
+        }
+        myBaby.drawBaby(ctx);
+    }
+
+    function uplateCanvas() {
+        ctx.clearRect(0, 0, 1200, 700);
+        ctx.font= "100px Comic Sans MS"
+        ctx.fillStyle="red"
+        ctx.fillText("Hiragana", 300,330)
+    }
+
+
+    function VaChamA() {
+        if (myIrohaA.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>このあめはおいしいですね。</li>\n" +
+                "    <li>明日、雨でしょう。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/a.png\" alt=\"a\">"
+
+        }
+    }
+
+    function VaChamI() {
+        if (myIrohaI.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>家はどこすか。</li>\n" +
+                "    <li>あなたの家は近いの。。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/i.png\" alt=\"\">"
+        }
+    }
+
+    function VaChamU() {
+        if (myIrohaU.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>歌が出来る。</li>\n" +
+                "    <li>この歌　いいね！。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/u.png\">"
+        }
+    }
+
+    function VaChamE() {
+        if (myIrohaE.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>英語がむずかしいー。</li>\n" +
+                "    <li>私、英語ができないよ。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/e.png\">"
+        }
+    }
+
+    function VaChamO() {
+        if (myIrohaO.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>おはようございます。</li>\n" +
+                "    <li>大阪に行った事がある。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/o.png\">"
+        }
+    }
+
+    function VaChamKa() {
+        if (myIrohaKa.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>家族は何人。</li>\n" +
+                "    <li>かにのあしはいくつ。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/ka.png\">"
+        }
+    }
+
+    function VaChamKi() {
+        if (myIrohaKi.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>木にのぼる。</li>\n" +
+                "    <li>日本の北がさむいよね。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/ki.png\">"
+        }
+    }
+
+    function VaChamKu() {
+        if (myIrohaKu.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>くまは竹が好きだよ。</li>\n" +
+                "    <li>あなたのくつしたがくさいー。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/ku.png\">"
+        }
+    }
+
+    function VaChamKe() {
+        if (myIrohaKe.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>たばこのけむりがくさいな。</li>\n" +
+                "    <li>たけのこはおいしい。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/ke.png\">"
+        }
+    }
+
+    function VaChamKo() {
+        if (myIrohaKo.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>病院はどこですか。</li>\n" +
+                "    <li>ここは教室です。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/ko.png\">"
+        }
+    }
+
+    function VaChamSa() {
+        if (myIrohaSa.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>泳いでいるさかながきれいなー。</li>\n" +
+                "    <li>さとうがあまいよ。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/sa.png\">"
+        }
+    }
+
+    function VaChamSi() {
+        if (myIrohaSi.vaCham()) {
+            document.getElementById("ketQua").innerHTML = " <ul>\n" +
+                "    <li>日本にしまが多いよ。</li>\n" +
+                "    <li>かいぎのしりょうをあつめる。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/shi.png\">"
+        }
+    }
+
+    function VaChamSu() {
+        if (myIrohaSu.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>ベトナムのすいかが安い。</li>\n" +
+                "    <li>日本のすしはおいしい。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/su.png\">"
+        }
+    }
+
+    function VaChamSe() {
+        if (myIrohaSe.vaCham()) {
+            document.getElementById("ketQua").innerHTML = "<ul>\n" +
+                "    <li>せかいが広い。</li>\n" +
+                "    <li>あなたのこたえはせいかいです。</li>\n" +
+                "\n" +
+                "</ul>\n" +
+                "<img src=\"imgCase/se.png\">"
+        }
+    }
+
+
+</script>
+
+
+</body>
+</html>
